@@ -1,12 +1,5 @@
-from utils import init_app
+from utils import init_app, style
 from llm.prompt import STANDARD_PROMPT
-
-class style:
-    BOLD = '\033[1m'
-    END = '\033[0m'
-    BLUE = '\033[34m'
-    GREEN = '\033[32m'
-    RED = '\033[31m'
 
 llm, router = init_app()
 

@@ -74,3 +74,10 @@ class Router:
             for route, similarity in route.items():
                 if similarity > 80:
                     return route
+
+class style:
+    BOLD = '\033[1m'
+    END = '\033[0m'
+    BLUE = '\033[34m'
+    GREEN = '\033[32m'
+    RED = '\033[31m'
