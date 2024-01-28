@@ -1,0 +1,11 @@
+{
+    "name": "LLM Exploration",
+    "build": {
+        "dockerfile": "../Dockerfile",
+        "context": ".."
+    },
+    "runArgs": [
+        "-v", "app:/app"
+    ],
+    "postCreateCommand": "echo 'LLM exploration dev container started!'"
+}
