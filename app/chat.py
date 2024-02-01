@@ -1,10 +1,12 @@
 from utils import init_app, style
 from llm.prompt import STANDARD_PROMPT
+from llm.functions.support_logic import SupportAgent
 
 llm, router = init_app()
+support = SupportAgent()
 
 # Assigning the issues that can be supported
-issues = ['Password Reset', 'Account Unlock']
+issues = support.issues
 STANDARD_PROMPT = STANDARD_PROMPT.format(issues=issues)
 
 # Adding the routes and examples to the router
@@ -29,8 +31,7 @@ while True:
     match route:
         case 'Password Reset':
             # Handle logic for supporting password reset
-            response = llm.query(STANDARD_PROMPT, query)
-            print(f"{style.BLUE}SUPPORT BOT: {response}{style.END}")
+            support.password_reset(query)
         case 'Account Unlock':
             # Handle logic for supporting account unlock
             response = llm.query(STANDARD_PROMPT, query)

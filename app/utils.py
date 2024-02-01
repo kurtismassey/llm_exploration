@@ -3,6 +3,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 from openai import OpenAI
+from llm.functions.support_logic import SupportAgent
 
 def init_app():
     """
@@ -21,10 +22,25 @@ class Llm():
     """
     def __init__(self):
         self.llm = OpenAI()
+        self.history = []
+
+    def store_history(self, query, response):
+        self.history.append({
+            "role": "user",
+            "content": query
+        })
+        self.history.append({
+            "role": "agent",
+            "content": response
+        })
+
+    def show_history(self):
+        print(self.history.items())
 
     def query(self, prompt, query):
         completion = self.llm.chat.completions.create(
             messages=[
+                self.history.items(),
                 {
                     "role": "system",
                     "content": prompt
@@ -36,7 +52,15 @@ class Llm():
             ],
             model="gpt-3.5-turbo"
         )
-        return completion.choices[0].message.content
+
+        response = completion.choices[0].message.content
+
+        self.store_history(
+            query=query, 
+            response=response
+            )
+
+        return response
     
 class Router:
     """

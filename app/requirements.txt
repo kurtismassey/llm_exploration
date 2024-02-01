@@ -3,3 +3,4 @@ openai
 sentence-transformers
 scikit-learn
 numpy
+pydantic
